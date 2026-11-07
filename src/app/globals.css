@@ -1,26 +1,73 @@
 @import "tailwindcss";
 
+/*
+ * Paleta própria do Pluno: base clara/escura neutra com acento em verde
+ * limão. Longe de qualquer cor institucional do Mackenzie (vermelho).
+ * O tema escuro segue a preferência do sistema (prefers-color-scheme),
+ * sem precisar de toggle manual.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #f6f9f3;
+  --superficie: #ffffff;
+  --primeiro-plano: #0f1710;
+  --esmaecido: #53604f;
+  --borda: #dde4d6;
+  --acento: #b6f03c;
+  --acento-primeiro-plano: #0f1710;
+  /* Tom mais escuro do acento, só pra ter contraste AA como texto no claro. */
+  --acento-forte: #3f6b12;
+  --anel-foco: #3f6b12;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b120c;
+    --superficie: #121b13;
+    --primeiro-plano: #f1f7ec;
+    --esmaecido: #a3b39b;
+    --borda: #22301f;
+    --acento: #c6ff4d;
+    --acento-primeiro-plano: #0b120c;
+    --acento-forte: #c6ff4d;
+    --anel-foco: #c6ff4d;
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-superficie: var(--superficie);
+  --color-primeiro-plano: var(--primeiro-plano);
+  --color-esmaecido: var(--esmaecido);
+  --color-borda: var(--borda);
+  --color-acento: var(--acento);
+  --color-acento-primeiro-plano: var(--acento-primeiro-plano);
+  --color-acento-forte: var(--acento-forte);
+  --font-sans: var(--font-sora);
+  --font-display: var(--font-space-grotesk);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--primeiro-plano);
+}
+
+/* Foco visível e consistente em qualquer elemento navegável por teclado. */
+:focus-visible {
+  outline: 2px solid var(--anel-foco);
+  outline-offset: 2px;
 }
