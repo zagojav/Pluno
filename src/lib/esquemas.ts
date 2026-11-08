@@ -5,7 +5,7 @@ import { CAMPI } from "./constantes";
 // cliente nunca deveria confiar só na validação do próprio formulário).
 export const esquemaInscricao = z.object({
   nome: z.string().trim().max(80, "Nome muito longo.").optional(),
-  email: z.email("Email inválido."),
+  email: z.email("Email inválido.").max(254, "Email muito longo."),
   campus: z.enum(CAMPI, "Selecione um campus."),
   curso: z
     .string()
@@ -31,6 +31,11 @@ export const esquemaInscricao = z.object({
   // Campo-armadilha: fica invisível na tela para gente real. Se vier
   // preenchido, é quase certeza que foi um bot.
   site: z.string().max(0, "Falha na validação.").optional(),
+  // Token do Cloudflare Turnstile. Opcional aqui no zod porque a checagem
+  // de verdade (incluindo "token ausente") acontece em verificarTurnstile,
+  // que também sabe lidar com o Turnstile não estar configurado (ambiente
+  // local sem as chaves do Cloudflare).
+  tokenTurnstile: z.string().max(2048).optional(),
 });
 
 export type DadosInscricao = z.infer<typeof esquemaInscricao>;
