@@ -1,35 +1,36 @@
 @import "tailwindcss";
 
 /*
- * Paleta própria do Pluno: base clara/escura neutra com acento em verde
- * limão. Longe de qualquer cor institucional do Mackenzie (vermelho).
- * O tema escuro segue a preferência do sistema (prefers-color-scheme),
- * sem precisar de toggle manual.
+ * Conceito visual: "o aviso que chega antes". Fundo de caderno
+ * quadriculado (textura só em CSS, sem imagem) e uma única cor de
+ * acento (amarelo marca-texto), nada de gradiente roxo/azul ou
+ * qualquer cor institucional.
  */
 :root {
-  --background: #f6f9f3;
+  --background: #f7f3e9;
   --superficie: #ffffff;
-  --primeiro-plano: #0f1710;
-  --esmaecido: #53604f;
-  --borda: #dde4d6;
-  --acento: #b6f03c;
-  --acento-primeiro-plano: #0f1710;
-  /* Tom mais escuro do acento, só pra ter contraste AA como texto no claro. */
-  --acento-forte: #3f6b12;
-  --anel-foco: #3f6b12;
+  --primeiro-plano: #1c1a14;
+  --esmaecido: #6b6558;
+  --borda: #d8d0bc;
+  --acento: #ffde59;
+  --acento-texto: #6b4e00;
+  --acento-primeiro-plano: #1c1a14;
+  --linha-grade: rgba(28, 26, 20, 0.07);
+  --anel-foco: #6b4e00;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0b120c;
-    --superficie: #121b13;
-    --primeiro-plano: #f1f7ec;
-    --esmaecido: #a3b39b;
-    --borda: #22301f;
-    --acento: #c6ff4d;
-    --acento-primeiro-plano: #0b120c;
-    --acento-forte: #c6ff4d;
-    --anel-foco: #c6ff4d;
+    --background: #15130f;
+    --superficie: #1e1b14;
+    --primeiro-plano: #f5f1e6;
+    --esmaecido: #b3ac98;
+    --borda: #332e22;
+    --acento: #ffe066;
+    --acento-texto: #ffe066;
+    --acento-primeiro-plano: #1c1a14;
+    --linha-grade: rgba(245, 241, 230, 0.06);
+    --anel-foco: #ffe066;
   }
 }
 
@@ -40,10 +41,10 @@
   --color-esmaecido: var(--esmaecido);
   --color-borda: var(--borda);
   --color-acento: var(--acento);
+  --color-acento-texto: var(--acento-texto);
   --color-acento-primeiro-plano: var(--acento-primeiro-plano);
-  --color-acento-forte: var(--acento-forte);
-  --font-sans: var(--font-sora);
-  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-bricolage);
+  --font-mono: var(--font-jetbrains);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -62,12 +63,38 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--primeiro-plano);
+  /* Textura de caderno quadriculado: duas grades de linha fina, sem
+     imagem nenhuma, só gradiente repetido. */
+  background-image:
+    linear-gradient(var(--linha-grade) 1px, transparent 1px),
+    linear-gradient(90deg, var(--linha-grade) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-/* Foco visível e consistente em qualquer elemento navegável por teclado. */
 :focus-visible {
   outline: 2px solid var(--anel-foco);
   outline-offset: 2px;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sublinhado tipo marca-texto, usado com moderação em palavras-chave. */
+.marca-texto {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--acento) 55%, transparent) 0.5em,
+    transparent 0.5em
+  );
+  padding: 0 0.05em;
 }

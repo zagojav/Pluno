@@ -1,19 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Sora, Space_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-// Fonte base pro corpo do texto: moderna e bem legível em telas pequenas.
-const sora = Sora({
-  variable: "--font-sora",
-  subsets: ["latin"],
+// Fonte única pro corpo e títulos, só 2 pesos (texto e destaque). Fica
+// hospedada no próprio site (next/font baixa e serve local, sem pedir nada
+// pra fontes.google no runtime).
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "700"],
   fallback: ["system-ui", "arial"],
 });
 
-// Fonte de destaque pros títulos: dá a identidade mais jovem/técnica.
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  fallback: ["system-ui", "arial"],
+// Mono só pra detalhes: datas, horários, rótulos tipo "passo 01".
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin", "latin-ext"],
+  weight: ["500"],
+  fallback: ["ui-monospace", "monospace"],
 });
 
 const urlSite = process.env.NEXT_PUBLIC_URL_SITE || "http://localhost:3000";
@@ -53,8 +58,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   colorScheme: "dark light",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f6f9f3" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b120c" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f3e9" },
+    { media: "(prefers-color-scheme: dark)", color: "#15130f" },
   ],
 };
 
@@ -62,10 +67,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${sora.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans bg-background text-primeiro-plano">
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
