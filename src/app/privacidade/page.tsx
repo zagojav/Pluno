@@ -13,7 +13,7 @@ export default function Privacidade() {
     <div className="flex flex-1 flex-col">
       <main className="flex-1 px-6 py-14 sm:py-20">
         <div className="mx-auto max-w-2xl">
-          <h1 className="font-display text-3xl font-semibold">
+          <h1 className="font-sans text-3xl font-bold">
             Política de privacidade
           </h1>
           <p className="mt-2 text-sm text-esmaecido">
@@ -23,7 +23,7 @@ export default function Privacidade() {
 
           <div className="mt-8 flex flex-col gap-8 text-sm leading-relaxed text-esmaecido">
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Quais dados coletamos
               </h2>
               <p className="mt-2">
@@ -35,7 +35,7 @@ export default function Privacidade() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Para que usamos
               </h2>
               <p className="mt-2">
@@ -47,7 +47,7 @@ export default function Privacidade() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Base legal
               </h2>
               <p className="mt-2">
@@ -58,7 +58,7 @@ export default function Privacidade() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Onde os dados ficam
               </h2>
               <p className="mt-2">
@@ -69,7 +69,7 @@ export default function Privacidade() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Por quanto tempo guardamos
               </h2>
               <p className="mt-2">
@@ -80,7 +80,7 @@ export default function Privacidade() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Como pedir exclusão
               </h2>
               <p className="mt-2">
@@ -104,7 +104,7 @@ export default function Privacidade() {
             </section>
 
             <section>
-              <h2 className="font-display text-lg font-semibold text-primeiro-plano">
+              <h2 className="font-sans text-lg font-bold text-primeiro-plano">
                 Controlador dos dados
               </h2>
               <p className="mt-2">Guilherme Rezende Zago.</p>

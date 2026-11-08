@@ -1,13 +1,13 @@
 export default function Confianca() {
   return (
-    <section className="px-6 py-14 sm:py-20">
-      <div className="mx-auto max-w-4xl rounded-2xl border border-borda bg-superficie p-6 sm:p-10">
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">
+    <section className="px-6 py-16 sm:py-24">
+      <div className="mx-auto max-w-4xl border-2 border-primeiro-plano bg-superficie p-6 sm:p-10">
+        <h2 className="font-sans text-2xl font-bold sm:text-3xl">
           Confiança antes de tudo
         </h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           <div>
-            <p className="font-display text-lg font-semibold text-acento-forte dark:text-acento">
+            <p className="font-sans text-lg font-bold">
               Nunca vamos pedir sua senha do TIA ou do Moodle.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-esmaecido">
@@ -16,7 +16,7 @@ export default function Confianca() {
             </p>
           </div>
           <div>
-            <p className="font-display text-lg font-semibold text-acento-forte dark:text-acento">
+            <p className="font-sans text-lg font-bold">
               Projeto independente.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-esmaecido">

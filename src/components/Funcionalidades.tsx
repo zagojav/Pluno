@@ -17,7 +17,7 @@ const FUNCIONALIDADES = [
       "Importa os prazos pelo link de calendário do Moodle. Sem precisar digitar sua senha em lugar nenhum.",
     icone: (
       <>
-        <rect x="4" y="5" width="16" height="15" rx="2" />
+        <rect x="4" y="5" width="16" height="15" rx="1" />
         <path d="M4 9h16M8 3v4M16 3v4" strokeLinecap="round" />
       </>
     ),
@@ -50,19 +50,19 @@ const FUNCIONALIDADES = [
 
 export default function Funcionalidades() {
   return (
-    <section className="px-6 py-14 sm:py-20">
+    <section className="px-6 py-16 sm:py-24">
       <div className="mx-auto max-w-4xl">
-        <h2 className="font-display text-2xl font-semibold sm:text-3xl">
+        <h2 className="font-sans text-2xl font-bold sm:text-3xl">
           O que vem no app
         </h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {FUNCIONALIDADES.map((item) => (
             <div
               key={item.titulo}
-              className="flex gap-4 rounded-2xl border border-borda bg-superficie p-5"
+              className="flex gap-4 border border-borda bg-superficie p-5"
             >
               <span
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-acento/15 text-acento-forte dark:text-acento"
+                className="flex h-10 w-10 shrink-0 items-center justify-center border-2 border-primeiro-plano text-primeiro-plano"
                 aria-hidden="true"
               >
                 <svg
@@ -76,7 +76,7 @@ export default function Funcionalidades() {
                 </svg>
               </span>
               <div>
-                <h3 className="font-display text-base font-semibold">
+                <h3 className="font-sans text-base font-bold">
                   {item.titulo}
                 </h3>
                 <p className="mt-1 text-sm leading-relaxed text-esmaecido">
