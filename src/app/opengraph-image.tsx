@@ -16,35 +16,28 @@ export default function ImagemOg() {
           justifyContent: "center",
           gap: 24,
           padding: "80px 90px",
-          background: "#0b120c",
-          color: "#f1f7ec",
+          background: "#15130f",
+          color: "#f5f1e6",
           fontFamily: "sans-serif",
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            gap: 12,
-            color: "#c6ff4d",
-            fontSize: 30,
+            color: "#1c1a14",
+            background: "#ffde59",
+            alignSelf: "flex-start",
+            padding: "6px 14px",
+            fontSize: 26,
             fontWeight: 700,
           }}
         >
-          <div
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: 999,
-              background: "#c6ff4d",
-            }}
-          />
           Pluno
         </div>
-        <div style={{ fontSize: 58, fontWeight: 700, lineHeight: 1.15 }}>
+        <div style={{ fontSize: 56, fontWeight: 700, lineHeight: 1.15 }}>
           A prova que o professor avisou em sala, no seu celular na hora.
         </div>
-        <div style={{ fontSize: 28, color: "#a3b39b" }}>
+        <div style={{ fontSize: 28, color: "#b3ac98" }}>
           Mural da turma · feito por aluno, pra aluno
         </div>
       </div>
