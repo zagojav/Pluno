@@ -1,9 +1,8 @@
-// Selo curto que reforça a origem do projeto: aluno construindo pra aluno,
-// sem parecer um produto oficial da universidade.
+// Etiqueta que lembra um post-it colado no caderno, sem exagerar (sem
+// sombra pesada, sem rotação caricata).
 export default function SeloFeitoPorAluno() {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-borda bg-superficie px-4 py-2 text-sm font-medium text-esmaecido">
-      <span className="h-2 w-2 rounded-full bg-acento" aria-hidden="true" />
+    <span className="inline-flex -rotate-2 items-center gap-2 border border-borda bg-acento px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-acento-primeiro-plano">
       Feito por aluno, pra aluno
     </span>
   );
