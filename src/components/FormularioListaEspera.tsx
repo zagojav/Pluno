@@ -1,10 +1,11 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useCallback, useId, useState, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { CAMPI, CURSOS_SUGERIDOS } from "@/lib/constantes";
 import TelaSucesso from "./TelaSucesso";
+import Turnstile from "./Turnstile";
 
 interface EstadoFormulario {
   nome: string;
@@ -81,10 +82,15 @@ export default function FormularioListaEspera() {
   const [erros, setErros] = useState<ErrosFormulario>({});
   const [erroGeral, setErroGeral] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
+  const [tokenTurnstile, setTokenTurnstile] = useState<string | null>(null);
   const [resultado, setResultado] = useState<{
     totalTurma: number;
     linkIndicacao: string;
   } | null>(null);
+
+  const aoObterTokenTurnstile = useCallback((token: string | null) => {
+    setTokenTurnstile(token);
+  }, []);
 
   function atualizarCampo<K extends keyof EstadoFormulario>(
     campo: K,
@@ -112,6 +118,9 @@ export default function FormularioListaEspera() {
     }
 
     setErros({});
+    // UI otimista: o botão já muda de estado na hora, antes mesmo da
+    // resposta do servidor chegar. Se der erro, os campos preenchidos
+    // continuam todos aí (nada é limpo).
     setEnviando(true);
 
     try {
@@ -129,6 +138,7 @@ export default function FormularioListaEspera() {
           ref: ref || undefined,
           consentimento: campos.consentimento,
           site: campos.site,
+          tokenTurnstile: tokenTurnstile ?? undefined,
         }),
       });
 
@@ -166,10 +176,10 @@ export default function FormularioListaEspera() {
     <form
       onSubmit={aoEnviar}
       noValidate
-      className="flex flex-col gap-5 rounded-2xl border border-borda bg-superficie p-6 sm:p-8"
+      className="flex flex-col gap-5 border-2 border-primeiro-plano bg-superficie p-6 sm:p-8"
     >
       <div>
-        <h3 className="font-display text-xl font-semibold">
+        <h3 className="font-sans text-xl font-bold">
           Entrar na lista de espera
         </h3>
         <p className="mt-1 text-sm text-esmaecido">
@@ -183,6 +193,7 @@ export default function FormularioListaEspera() {
         valor={campos.nome}
         onChange={(valor) => atualizarCampo("nome", valor)}
         autoComplete="name"
+        maxLength={80}
       />
 
       <CampoTexto
@@ -194,12 +205,13 @@ export default function FormularioListaEspera() {
         onChange={(valor) => atualizarCampo("email", valor)}
         erro={erros.email}
         autoComplete="email"
+        maxLength={254}
       />
 
       <div>
         <label
           htmlFor={`${idBase}-campus`}
-          className="mb-1.5 block text-sm font-medium"
+          className="mb-1.5 block text-sm font-bold"
         >
           Campus <span aria-hidden="true">*</span>
         </label>
@@ -209,7 +221,7 @@ export default function FormularioListaEspera() {
           onChange={(evento) => atualizarCampo("campus", evento.target.value)}
           aria-invalid={erros.campus ? true : undefined}
           aria-describedby={erros.campus ? `${idBase}-campus-erro` : undefined}
-          className="min-h-[44px] w-full rounded-lg border border-borda bg-background px-3 text-base"
+          className="min-h-[44px] w-full border-2 border-borda bg-background px-3 text-base"
         >
           <option value="">Selecione...</option>
           {CAMPI.map((campus) => (
@@ -231,7 +243,7 @@ export default function FormularioListaEspera() {
       <div>
         <label
           htmlFor={`${idBase}-curso`}
-          className="mb-1.5 block text-sm font-medium"
+          className="mb-1.5 block text-sm font-bold"
         >
           Curso <span aria-hidden="true">*</span>
         </label>
@@ -242,8 +254,9 @@ export default function FormularioListaEspera() {
           onChange={(evento) => atualizarCampo("curso", evento.target.value)}
           aria-invalid={erros.curso ? true : undefined}
           aria-describedby={erros.curso ? `${idBase}-curso-erro` : undefined}
-          className="min-h-[44px] w-full rounded-lg border border-borda bg-background px-3 text-base"
+          className="min-h-[44px] w-full border-2 border-borda bg-background px-3 text-base"
           placeholder="Ex: Ciência da Computação"
+          maxLength={80}
         />
         <datalist id={`${idBase}-cursos`}>
           {CURSOS_SUGERIDOS.map((curso) => (
@@ -264,7 +277,7 @@ export default function FormularioListaEspera() {
         <div>
           <label
             htmlFor={`${idBase}-semestre`}
-            className="mb-1.5 block text-sm font-medium"
+            className="mb-1.5 block text-sm font-bold"
           >
             Semestre <span aria-hidden="true">*</span>
           </label>
@@ -282,7 +295,7 @@ export default function FormularioListaEspera() {
             aria-describedby={
               erros.semestre ? `${idBase}-semestre-erro` : undefined
             }
-            className="min-h-[44px] w-full rounded-lg border border-borda bg-background px-3 text-base"
+            className="min-h-[44px] w-full border-2 border-borda bg-background px-3 text-base"
             placeholder="1 a 12"
           />
           {erros.semestre && (
@@ -303,6 +316,7 @@ export default function FormularioListaEspera() {
           onChange={(valor) => atualizarCampo("turma", valor)}
           erro={erros.turma}
           placeholder="Ex: 01A"
+          maxLength={10}
         />
       </div>
 
@@ -335,7 +349,7 @@ export default function FormularioListaEspera() {
           aria-describedby={
             erros.consentimento ? `${idBase}-consentimento-erro` : undefined
           }
-          className="mt-0.5 h-5 w-5 shrink-0 rounded border-borda"
+          className="mt-0.5 h-5 w-5 shrink-0 border-2 border-borda"
         />
         <label
           htmlFor={`${idBase}-consentimento`}
@@ -345,7 +359,7 @@ export default function FormularioListaEspera() {
           montar as turmas, conforme a{" "}
           <Link
             href="/privacidade"
-            className="font-medium text-primeiro-plano underline underline-offset-4"
+            className="font-bold text-primeiro-plano underline underline-offset-4"
           >
             política de privacidade
           </Link>
@@ -367,10 +381,12 @@ export default function FormularioListaEspera() {
         </p>
       )}
 
+      <Turnstile aoObterToken={aoObterTokenTurnstile} />
+
       <button
         type="submit"
         disabled={enviando}
-        className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-acento px-6 text-base font-semibold text-acento-primeiro-plano transition-transform hover:scale-[1.02] disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:scale-100"
+        className="inline-flex min-h-[44px] items-center justify-center border-2 border-primeiro-plano bg-acento px-6 text-base font-bold text-acento-primeiro-plano transition-transform hover:-translate-y-0.5 disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       >
         {enviando ? "Enviando..." : "Entrar na lista"}
       </button>
@@ -388,6 +404,7 @@ interface PropriedadesCampoTexto {
   erro?: string;
   placeholder?: string;
   autoComplete?: string;
+  maxLength?: number;
 }
 
 // Campo de texto simples e reaproveitável, já com label, erro e alvo de
@@ -402,11 +419,12 @@ function CampoTexto({
   erro,
   placeholder,
   autoComplete,
+  maxLength,
 }: PropriedadesCampoTexto) {
   const idErro = `${id}-erro`;
   return (
     <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm font-medium">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-bold">
         {label} {obrigatorio && <span aria-hidden="true">*</span>}
       </label>
       <input
@@ -418,7 +436,8 @@ function CampoTexto({
         aria-describedby={erro ? idErro : undefined}
         placeholder={placeholder}
         autoComplete={autoComplete}
-        className="min-h-[44px] w-full rounded-lg border border-borda bg-background px-3 text-base"
+        maxLength={maxLength}
+        className="min-h-[44px] w-full border-2 border-borda bg-background px-3 text-base"
       />
       {erro && (
         <p id={idErro} className="mt-1.5 text-sm text-red-700 dark:text-red-400">

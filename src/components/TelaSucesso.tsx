@@ -36,11 +36,11 @@ export default function TelaSucesso({
 
   return (
     <div
-      className="flex flex-col gap-5 rounded-2xl border border-borda bg-superficie p-6 sm:p-8"
+      className="flex flex-col gap-5 border-2 border-primeiro-plano bg-superficie p-6 sm:p-8"
       role="status"
     >
       <div>
-        <h3 className="font-display text-xl font-semibold">
+        <h3 className="font-sans text-xl font-bold">
           Você entrou na lista!
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-esmaecido">
@@ -53,7 +53,7 @@ export default function TelaSucesso({
         href={linkWhatsapp}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-acento px-6 text-center text-base font-semibold text-acento-primeiro-plano transition-transform hover:scale-[1.02] motion-reduce:transition-none motion-reduce:hover:scale-100"
+        className="inline-flex min-h-[44px] items-center justify-center border-2 border-primeiro-plano bg-acento px-6 text-center text-base font-bold text-acento-primeiro-plano transition-transform hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
       >
         Chamar minha turma no WhatsApp
       </a>
@@ -61,12 +61,14 @@ export default function TelaSucesso({
       <button
         type="button"
         onClick={copiarLink}
-        className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-borda px-6 text-sm font-medium text-primeiro-plano"
+        className="inline-flex min-h-[44px] items-center justify-center border-2 border-borda px-6 text-sm font-bold text-primeiro-plano"
       >
         {copiado ? "Link copiado!" : "Copiar link de indicação"}
       </button>
 
-      <p className="break-all text-xs text-esmaecido">{linkIndicacao}</p>
+      <p className="font-mono text-xs break-all text-esmaecido">
+        {linkIndicacao}
+      </p>
     </div>
   );
 }
